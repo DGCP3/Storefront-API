@@ -1,0 +1,1 @@
+drop View if EXISTS order_details_view
