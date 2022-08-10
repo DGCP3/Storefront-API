@@ -1,0 +1,33 @@
+version: '3.9'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    networks:
+      - postgres
+  pgadmin:
+    links:
+      - postgres:postgres
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    ports:
+      - '8080:80'
+    volumes:
+      - /tmp/pgadmin:/root/.pgadmin
+    env_file:
+      - .env
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
