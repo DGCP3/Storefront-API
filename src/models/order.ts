@@ -2,9 +2,9 @@ import { QueryResult } from 'pg'
 import client, { objectToQueryWithAnd, objectToQueryWithComma } from 'utils'
 
 type Order = {
-  order_id_pk?: string
+  order_id_pk?: number
   order_status?: 'open' | 'processing' | 'completed' | 'cancelled'
-  user_id_fk?: string
+  user_id_fk?: number
 }
 
 class OrderModel {
@@ -31,7 +31,7 @@ class OrderModel {
     )
   }
 
-  delete(data: Partial<Order>) {
+  delete(data: Order) {
     return client.query(`DELETE FROM orders WHERE ${objectToQueryWithAnd(data)} RETURNING *`)
   }
 }

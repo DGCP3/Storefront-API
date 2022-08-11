@@ -2,7 +2,7 @@ import { QueryResult } from 'pg'
 import client, { objectToQueryWithAnd, objectToQueryWithComma } from 'utils'
 
 export type User = {
-  user_id_pk?: string
+  user_id_pk?: number
   user_name: string
   user_email: string
   user_password: string
@@ -31,7 +31,7 @@ class UserModel {
     )
   }
 
-  delete(id: string): Promise<any> {
+  delete(id: number): Promise<any> {
     return client.query(`DELETE FROM users WHERE  user_id_pk = ${id}`)
   }
 }
