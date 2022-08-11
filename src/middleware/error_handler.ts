@@ -16,7 +16,7 @@ export const errorHandler = (
   res: Response,
   _next: NextFunction
 ) => {
-  if (env !== 'development') {
+  if (env === 'development') {
     res.status(error.statusCode || 500).send({ massage: error.message })
     return
   }
