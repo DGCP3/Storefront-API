@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc && tsc-alias",
     "watch": "ts-node-dev -r tsconfig-paths/register --files src/index.ts",
-    "start": "node build/index.js",
+    "start": "set NODE_ENV=production && node build/index.js",
     "db:up": "db-migrate up -env",
     "db:down": "db-migrate reset",
     "setup-db-test": "db-migrate db:drop testDB && db-migrate db:create testDB && db-migrate up -e test",
