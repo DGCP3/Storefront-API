@@ -1,13 +1,6 @@
 import config from 'configs/default'
-import { Request, Response } from 'express'
-import { errorHandler } from 'middleware'
-import routes from 'routes'
-import app from 'server'
 import client, { log } from 'utils'
-
-routes(app)
-app.get('/', (_req: Request, res: Response) => res.sendStatus(200))
-app.use(errorHandler)
+import app from 'utils/server'
 
 function init() {
   client
