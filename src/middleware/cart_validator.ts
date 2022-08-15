@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
-import orderProduct from 'models/order_products'
+import orderProduct from 'models/order_product'
 import product from 'models/product'
+import { ErrorResponse } from 'types/error'
 import { asyncDecorator } from 'utils'
-import { ErrorResponse } from './error_handler'
 
 export const cartValidator = asyncDecorator(
   async (req: Request, res: Response, next: NextFunction) => {

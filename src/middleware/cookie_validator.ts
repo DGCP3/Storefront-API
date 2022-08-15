@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
+import { ErrorResponse } from 'types/error'
 import { asyncDecorator, verifyToken } from 'utils'
-import { ErrorResponse } from './error_handler'
 
 export const cookieValidator = asyncDecorator(
   async (req: Request, res: Response, next: NextFunction) => {
