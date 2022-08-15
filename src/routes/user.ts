@@ -3,19 +3,19 @@ import {
   deleteOrderItem,
   getOrderDetails,
   getOrderItems,
-  getOrders,
+  getUserOrders,
   updateOrderItem
 } from 'controllers/order'
-import { getUsers } from 'controllers/user'
+import { deleteAccount, getUsers } from 'controllers/user'
 import { Router } from 'express'
 import { cartValidator, cookieValidator } from 'middleware'
 
 const router = Router()
 
 // order
-router.route('/orders').get(cookieValidator, getOrders)
-router.route('/orders/products').get(cookieValidator, getOrderDetails)
-router.route('/orders/:orderID/products').get(getOrderDetails)
+router.route('/orders').get(cookieValidator, getUserOrders)
+router.route('/orders/:orderId/products').get(cookieValidator, getOrderDetails)
+router.route('/orders/:orderId').get(cookieValidator, getUserOrders)
 // cart
 router
   .route('/cart')
@@ -25,7 +25,7 @@ router
   .delete(deleteOrderItem)
   .patch(updateOrderItem)
 // user details
-router.route('/').get(getUsers)
-router.route('/:userID').get(getUsers)
+router.route('/').get(getUsers).delete(cookieValidator, deleteAccount)
+router.route('/:userId').get(getUsers)
 
 export default router
