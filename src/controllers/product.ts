@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { ErrorResponse } from 'middleware'
 import productModel from 'models/product'
+import { ErrorResponse } from 'types/error'
 import { asyncDecorator } from 'utils'
 
 export const getProduct = asyncDecorator(async (req: Request, res: Response) => {
@@ -14,18 +14,21 @@ export const getProduct = asyncDecorator(async (req: Request, res: Response) => 
 })
 
 export const createProduct = asyncDecorator(async (req: Request, res: Response) => {
-  await productModel.create(req.body)
-  res.sendStatus(201)
+  const {
+    rows: [{ product_id_pk }]
+  } = await productModel.create(req.body)
+  res.status(201).send({ id: product_id_pk })
 })
 
 export const deleteProduct = asyncDecorator(async (req: Request, res: Response) => {
-  const { id } = req.params
-  await productModel.delete({ product_id_pk: id })
+  const { productId } = req.params
+  await productModel.delete({ product_id_pk: productId })
   res.sendStatus(200)
 })
 
 export const updateProduct = asyncDecorator(async (req: Request, res: Response) => {
-  const { id } = req.params
-  await productModel.update({ product_id_pk: id }, { ...req.body })
+  const { productId } = req.params
+
+  await productModel.update({ product_id_pk: productId }, { ...req.body })
   res.sendStatus(202)
 })

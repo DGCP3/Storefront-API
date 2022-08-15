@@ -1,19 +1,27 @@
 import { Request, Response } from 'express'
-import { ErrorResponse } from 'middleware'
 import order from 'models/order'
 import orderDetailsView from 'models/order_details'
-import orderItem from 'models/order_products'
+import orderItem from 'models/order_product'
+import { ErrorResponse } from 'types/error'
 import { asyncDecorator } from 'utils'
 
-//-------------------------order-------------------------
-
 export const getOrders = asyncDecorator(async (req: Request, res: Response) => {
+  const { orderID } = req.params
+  const { rowCount: orderRowCount, rows: data } = await order.select(
+    orderID ? { order_id_pk: ~~orderID } : undefined,
+    ['order_id_pk', 'order_status']
+  )
+  if (!orderRowCount) throw new ErrorResponse('no order found', 404)
+  res.send(data)
+})
+
+export const getUserOrders = asyncDecorator(async (req: Request, res: Response) => {
   const { userId } = req.user
-  console.log(req.user)
-  const { rowCount: orderRowCount, rows: data } = await order.select({ user_id_fk: userId }, [
-    'order_id_pk',
-    'order_status'
-  ])
+  const { orderId } = req.params
+  const { rowCount: orderRowCount, rows: data } = await order.select(
+    { user_id_fk: userId, ...(orderId && { order_id_pk: ~~orderId }) },
+    ['order_id_pk', 'order_status']
+  )
   if (!orderRowCount) throw new ErrorResponse('no order found', 404)
   res.send(data)
 })
@@ -27,19 +35,20 @@ export const createOrder = asyncDecorator(async (req: Request, res: Response) =>
 })
 
 export const getOrderDetails = asyncDecorator(async (req: Request, res: Response) => {
-  const { orderID: order_id_fk } = req.user
-  const { rows: data, rowCount: orderItemRowCount } = await orderDetailsView.select({
-    order_id: order_id_fk
-  })
-  if (!orderItemRowCount) throw new ErrorResponse('order not found', 404)
+  const { orderId: order_id_fk } = req.user
+  const { orderId } = req.params
+  const oid = orderId || order_id_fk
+  const { rows: data, rowCount: orderCount } = await orderDetailsView.select({ order_id: oid }, [
+    'product_name',
+    'order_status',
+    'product_price'
+  ])
+  if (!orderCount) throw new ErrorResponse('no product in cart ', 404)
   res.send(data)
 })
 
-// ------------------------cart------------------------
-
 export const getOrderItems = asyncDecorator(async (req: Request, res: Response) => {
   const { orderId: order_id } = req.user
-  console.log(req.user)
   const { rows: data } = await orderDetailsView.select({ order_id }, [
     'product_name',
     'item_number',
@@ -66,7 +75,6 @@ export const deleteOrderItem = asyncDecorator(async (req: Request, res: Response
 export const updateOrderItem = asyncDecorator(async (req: Request, res: Response) => {
   const { productId, quantity } = req.body
   const { orderId: order_id_fk } = req.user
-  console.log(req.method, req.body)
   await orderItem.update({ product_id_fk: productId, order_id_fk }, { quantity })
   res.sendStatus(200)
 })
