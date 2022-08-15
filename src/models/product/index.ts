@@ -1,13 +1,6 @@
 import { QueryResult } from 'pg'
 import client, { objectToQueryWithAnd, objectToQueryWithComma } from 'utils'
 
-export type Product = {
-  product_id_pk?: string
-  product_name: string
-  product_desc: string
-  product_price: string
-}
-
 class ProductModel {
   select(
     param?: Partial<Product>,

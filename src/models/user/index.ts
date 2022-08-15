@@ -1,13 +1,6 @@
 import { QueryResult } from 'pg'
 import client, { objectToQueryWithAnd, objectToQueryWithComma } from 'utils'
 
-export type User = {
-  user_id_pk?: number
-  user_name: string
-  user_email: string
-  user_password: string
-}
-
 class UserModel {
   select(where?: Partial<User>, returnColumns?: (keyof User)[]): Promise<QueryResult<User>> {
     return client.query(

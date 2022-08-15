@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
+import { ErrorResponse } from 'types/error'
 import { asyncDecorator } from 'utils'
 import { AnyZodObject } from 'zod'
-import { ErrorResponse } from './error_handler'
 
 export const requestValidator = (schema: AnyZodObject) =>
   asyncDecorator(async (req: Request, res: Response, next: NextFunction) => {

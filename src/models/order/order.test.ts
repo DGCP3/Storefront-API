@@ -2,10 +2,10 @@ import orderModel from 'models/order'
 import connect from 'utils'
 
 describe('order model', () => {
-  let orderID: string
+  let orderID: number
   afterAll(async () => {
     await orderModel.delete({
-      order_id_pk: orderID
+      order_id_pk: ~~orderID
     })
     connect.end()
   })
@@ -14,9 +14,9 @@ describe('order model', () => {
       rows: [{ order_id_pk }]
     } = await orderModel.create({
       order_status: 'open',
-      user_id_fk: '1'
+      user_id_fk: 1
     })
-    orderID = order_id_pk as string
+    orderID = order_id_pk as number
   })
   test('CRUD functions should be defined', async () => {
     expect(orderModel.create).toBeDefined()
@@ -38,7 +38,7 @@ describe('order model', () => {
     expect(order_status).toBe('completed')
   })
   test('delete', async () => {
-    const { rowCount } = await orderModel.delete({ order_id_pk: orderID })
+    const { rowCount } = await orderModel.delete({ order_id_pk: ~~orderID })
     expect(rowCount).toBe(1)
   })
 })

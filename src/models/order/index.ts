@@ -1,12 +1,6 @@
 import { QueryResult } from 'pg'
 import client, { objectToQueryWithAnd, objectToQueryWithComma } from 'utils'
 
-type Order = {
-  order_id_pk?: number
-  order_status?: 'open' | 'processing' | 'completed' | 'cancelled'
-  user_id_fk?: number
-}
-
 class OrderModel {
   select(where?: Order, columns?: (keyof Order)[]): Promise<QueryResult<Order>> {
     return client.query(
