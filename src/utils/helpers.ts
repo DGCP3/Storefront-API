@@ -12,7 +12,7 @@ export const asyncDecorator =
     Promise.resolve(fn(req, res, next)).catch(next)
   }
 
-export const getOpenOrder = async (userId: string): Promise<string> => {
+export const getOpenOrder = async (userId: number): Promise<number> => {
   const {
     rowCount,
     rows: [data]
@@ -22,8 +22,8 @@ export const getOpenOrder = async (userId: string): Promise<string> => {
     const {
       rows: [{ order_id_pk }]
     } = await orderModel.create({ user_id_fk: userId, order_status: 'open' })
-    return order_id_pk as string
-  } else return data.order_id_pk as string
+    return order_id_pk as number
+  } else return data.order_id_pk as number
 }
 
 export const hashInput = (input: string) => {
