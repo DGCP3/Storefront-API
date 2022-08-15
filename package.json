@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "build": "tsc && tsc-alias",
+    "build": "tsc -p tsconfig.prod.json && tsc-alias",
     "watch": "ts-node-dev -r tsconfig-paths/register --files src/index.ts",
     "start": "set NODE_ENV=production && node build/index.js",
     "db:up": "db-migrate up -env",
     "db:down": "db-migrate reset",
     "setup-db-test": "db-migrate db:drop testDB && db-migrate db:create testDB && db-migrate up -e test",
-    "test": "npm run setup-db-test && set ENV=test && jest --watch"
+    "test": "npm run setup-db-test && set ENV=test && jest --watch --runInBand --detectOpenHandles"
   },
   "repository": {
     "type": "git",
@@ -54,6 +54,7 @@
     "@types/morgan": "^1.9.3",
     "@types/node": "^18.6.3",
     "@types/pg": "^8.6.5",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
     "concurrently": "^7.3.0",

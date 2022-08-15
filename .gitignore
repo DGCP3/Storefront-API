@@ -3,3 +3,4 @@
 /src/logFile/*
 /.env
 /.vscode
+/coverage

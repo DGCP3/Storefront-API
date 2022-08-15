@@ -12,6 +12,7 @@ specifiers:
   '@types/morgan': ^1.9.3
   '@types/node': ^18.6.3
   '@types/pg': ^8.6.5
+  '@types/supertest': ^2.0.12
   '@typescript-eslint/eslint-plugin': ^5.32.0
   '@typescript-eslint/parser': ^5.32.0
   bcryptjs: ^2.4.3
@@ -78,6 +79,7 @@ devDependencies:
   '@types/morgan': 1.9.3
   '@types/node': 18.6.3
   '@types/pg': 8.6.5
+  '@types/supertest': 2.0.12
   '@typescript-eslint/eslint-plugin': 5.32.0_iosr3hrei2tubxveewluhu5lhy
   '@typescript-eslint/parser': 5.32.0_qugx7qdu5zevzvxaiqyxfiwquq
   concurrently: 7.3.0
@@ -861,6 +863,10 @@ packages:
       '@types/express': 4.17.13
     dev: true
 
+  /@types/cookiejar/2.1.2:
+    resolution: {integrity: sha512-t73xJJrvdTjXrn4jLS9VSGRbz0nUY3cl2DMGDU48lKl+HR9dbbjW2A9r3g40VA++mQpy6uuHg33gy7du2BKpog==}
+    dev: true
+
   /@types/cors/2.8.12:
     resolution: {integrity: sha512-vt+kDhq/M2ayberEtJcIN/hxXy1Pk+59g2FV/ZQceeaTyCtCucjL2Q7FXlFjtWn4n15KCr1NE2lNNFhp0lEThw==}
     dev: true
@@ -986,6 +992,19 @@ packages:
 
   /@types/strip-json-comments/0.0.30:
     resolution: {integrity: sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==}
+    dev: true
+
+  /@types/superagent/4.1.15:
+    resolution: {integrity: sha512-mu/N4uvfDN2zVQQ5AYJI/g4qxn2bHB6521t1UuH09ShNWjebTqN0ZFuYK9uYjcgmI0dTQEs+Owi1EO6U0OkOZQ==}
+    dependencies:
+      '@types/cookiejar': 2.1.2
+      '@types/node': 18.6.3
+    dev: true
+
+  /@types/supertest/2.0.12:
+    resolution: {integrity: sha512-X3HPWTwXRerBZS7Mo1k6vMVR1Z6zmJcDVn5O/31whe0tnjE4te6ZJSJGq1RiqHPjzPdMTfjCFogDJmwng9xHaQ==}
+    dependencies:
+      '@types/superagent': 4.1.15
     dev: true
 
   /@types/yargs-parser/21.0.0:

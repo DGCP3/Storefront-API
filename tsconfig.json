@@ -31,9 +31,10 @@
       "utils/*": ["utils/*"],
       "middleware/*": ["middleware/*"],
       "configs/*": ["configs/*"],
-      "schema/*": ["schema/*"]
+      "schema/*": ["schema/*"],
+      "types/*": ["@types/*"]
     }
   },
-  "exclude": ["node_modules", "/*.test.ts"],
+  "exclude": ["node_modules"],
   "include": ["./src/**/*.ts"]
 }
