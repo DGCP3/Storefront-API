@@ -8,8 +8,4 @@ CREATE TABLE
 
 INSERT INTO
     users (user_name, user_email, user_password)
-VALUES (
-        'user1',
-        'test@test.com',
-        '$2a$12$UJNV3dY1EYTBovXrSjbEtO8AF3iPJ5u4QKLu6P8VHdM2eZb5XpGiK'
-    );
+VALUES ('john doe','test@test.com','$2a$12$wVh3yznV.AqL8bIU0BVGHu/9Ot07KmGJWOJ9LWiJG2bMkrr4mwlEy');
