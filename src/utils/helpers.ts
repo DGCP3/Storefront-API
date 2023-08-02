@@ -42,14 +42,18 @@ export const verifyToken = (token: string) => {
   return jwt.verify(token, jwt_token as string)
 }
 
-export function objectToQueryWithComma<Type, Key extends keyof Type>(obj: Type): string {
+export function objectToQueryWithComma<Type extends Record<string, string | number>>(
+  obj: Type
+): string {
   return Object.keys(obj)
-    .map((key) => `${key} = '${obj[key as Key]}'`)
+    .map((key) => `${key} = '${obj[key]}'`)
     .join(', ')
 }
 
-export function objectToQueryWithAnd<Type, Key extends keyof Type>(obj: Type): string {
+export function objectToQueryWithAnd<Type extends Record<string, string | number>>(
+  obj: Type
+): string {
   return Object.keys(obj)
-    .map((key) => `${key} = '${obj[key as Key]}'`)
+    .map((key) => `${key} = '${obj[key]}'`)
     .join(' AND ')
 }
